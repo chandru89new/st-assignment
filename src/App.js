@@ -1,24 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
+import "./App.css";
 
 function App() {
+  let stAnalytics;
+
+  useEffect(() => {
+    const init = async function () {
+      stAnalytics = await window.stInit();
+      stAnalytics
+        .getInstance()
+        .sendPageViewEvent("home_page_viewed", {});
+    };
+    init();
+  }, []);
+
+  const trigButtonEvent = () => {
+    if (stAnalytics)
+      stAnalytics.getInstance().sendButtonEvent("button_clicked", {
+        name: "button1",
+      });
+  };
+  const trigPageEvent = () => {
+    if (stAnalytics)
+      stAnalytics.getInstance().sendButtonEvent("button_clicked", {
+        name: "button2",
+      });
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div id="app">
+      <div>
+        <button onClick={() => trigButtonEvent()}>Button 1</button>
+      </div>
+      <div>
+        <button onClick={() => trigPageEvent()}>Button 2</button>
+      </div>
     </div>
   );
 }
