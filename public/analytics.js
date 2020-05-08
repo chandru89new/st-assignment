@@ -45,12 +45,4 @@
   }
 
   window.stAnalytics = new stAnalytics();
-
-  function stInit() {
-    return new Promise((resolve) => {
-      setTimeout(() => resolve(window.stAnalytics), 1000);
-    });
-  }
-
-  window.stInit = stInit;
 })();

@@ -5,35 +5,32 @@ function App() {
   let stAnalytics;
 
   useEffect(() => {
-    const init = async function () {
-      stAnalytics = await window.stInit();
+    stAnalytics = window.stAnalytics;
+    if (stAnalytics) {
       stAnalytics
         .getInstance()
         .sendPageViewEvent("home_page_viewed", {});
-    };
-    init();
+    }
   }, []);
 
-  const trigButtonEvent = () => {
+  const trigButtonEvent = (name) => {
     if (stAnalytics)
       stAnalytics.getInstance().sendButtonEvent("button_clicked", {
-        name: "button1",
-      });
-  };
-  const trigPageEvent = () => {
-    if (stAnalytics)
-      stAnalytics.getInstance().sendButtonEvent("button_clicked", {
-        name: "button2",
+        name,
       });
   };
 
   return (
     <div id="app">
       <div>
-        <button onClick={() => trigButtonEvent()}>Button 1</button>
+        <button onClick={() => trigButtonEvent("button1")}>
+          Button 1
+        </button>
       </div>
       <div>
-        <button onClick={() => trigPageEvent()}>Button 2</button>
+        <button onClick={() => trigButtonEvent("button2")}>
+          Button 2
+        </button>
       </div>
     </div>
   );
